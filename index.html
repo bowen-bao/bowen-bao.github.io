@@ -91,12 +91,55 @@
     }
 
     /* ABOUT */
+    #about .intro-row {
+      display: grid;
+      grid-template-columns: 1fr 100px;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 1.5rem;
+    }
+
     #about .name {
       font-size: 32px;
       font-weight: 400;
       font-style: italic;
       line-height: 1.2;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    #about .tagline {
+      font-size: 14px;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+      margin-bottom: 0;
+    }
+
+    #about .photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 0.5px solid var(--border);
+      display: block;
+    }
+
+    #about .photo-placeholder {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 0.5px dashed var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+      text-align: center;
+      line-height: 1.4;
+      flex-shrink: 0;
     }
 
     #about .bio {
@@ -203,6 +246,29 @@
     }
 
     .project-links a:hover { color: var(--text-primary); }
+
+    .project.hidden { display: none; }
+    .project.hidden.visible { display: block; }
+
+    .show-more-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 1rem 0 0;
+      transition: color 0.15s;
+    }
+
+    .show-more-btn:hover { color: var(--text-primary); }
+    .show-more-btn svg { transition: transform 0.25s ease; }
+    .show-more-btn.expanded svg { transform: rotate(180deg); }
 
     /* ART */
     .tab-row {
@@ -341,6 +407,8 @@
     @media (max-width: 540px) {
       nav { padding: 0 1.25rem; }
       main { padding: 2.5rem 1.25rem 4rem; }
+      #about .intro-row { grid-template-columns: 1fr 80px; gap: 1rem; }
+      #about .photo, #about .photo-placeholder { width: 80px; height: 80px; }
       .featured-piece { grid-template-columns: 1fr; }
       .featured-info { order: -1; }
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
@@ -363,9 +431,16 @@
 
     <!-- ABOUT -->
     <section id="about">
-      <h1 class="name">Bowen Bao</h1>
+      <div class="intro-row">
+        <div>
+          <h1 class="name">Bowen Bao</h1>
+          <p class="tagline">Making health systems healthier.</p>
+        </div>
+        <!-- Replace the div below with: <img src="photo.jpg" alt="Bowen Bao" class="photo"> -->
+        <div class="photo-placeholder">your<br>photo</div>
+      </div>
       <p class="bio">
-        I'm a software engineer focused on <em>health and science data infrastructure</em>. I care about systems that make consequential things legible — whether that's a patient's trajectory through a hospital, a genome sequence, or the movement of light across water. Outside of engineering I practice ikebana and watercolor, both of which are, at bottom, about the same problem: how do you represent something real without losing what made it worth representing.
+        I'm a software engineer who enjoys visual arts, open ended questions, and systems that make consequential things legible — whether that's a patient's trajectory through a hospital, a genome sequence, or the movement of light across water. Outside of engineering I practice ikebana, watercolor, and woodworking, all of which are, at bottom, about the same problem: how do you represent something real without losing what made it worth representing.
       </p>
       <div class="contact-links">
         <a href="https://github.com/bowen-bao" target="_blank" rel="noopener">GitHub</a>
@@ -394,11 +469,52 @@
       <div class="project">
         <div class="project-header">
           <span class="project-title">HeartBioPortal</span>
-          <span class="project-tag">UChicago Medicine</span>
+          <span class="project-tag">UChicago Medicine · 2020</span>
         </div>
-        <p>Clinical data platform for cardiovascular research built on the Gen3 / NIH data commons framework. Enabled secure cohort access and cross-institutional data sharing across the CTDS ecosystem at UChicago Medicine.</p>
-        <div class="project-meta">Python · Gen3 · NIH Data Commons · Clinical Data Infrastructure</div>
+        <p>Clinical data platform for cardiovascular research at UChicago Medicine. Enabled clinicians and researchers to query, access, and share de-identified patient cohorts through a secure web interface built for the institution's translational research programs.</p>
+        <div class="project-meta">Python · React · Clinical Data Infrastructure · UChicago Medicine</div>
       </div>
+
+      <div class="project">
+        <div class="project-header">
+          <span class="project-title">CoV Binding Affinities</span>
+          <span class="project-tag">Computational Biology · 2021</span>
+        </div>
+        <p>Binding energy calculations between the human receptor ACE2 and various coronavirus spike proteins. Modeled structural interactions to understand how mutations in different coronavirus strains affect receptor affinity — relevant to both viral evolution and therapeutic targeting.</p>
+        <div class="project-meta">Python · Molecular Dynamics · Binding Energy · ACE2 · Structural Biology</div>
+        <div class="project-links">
+          <a href="https://github.com/bowen-bao/CoV-Binding-Affinities" target="_blank" rel="noopener">GitHub →</a>
+          <a href="https://medium.com/@bowenbao_43632/binding-affinities-of-coronaviruses-on-the-human-receptor-8d654bcbea60" target="_blank" rel="noopener">Write-up →</a>
+        </div>
+      </div>
+
+      <div class="project hidden" id="project-gen3">
+        <div class="project-header">
+          <span class="project-title">Gen3 Data Commons</span>
+          <span class="project-tag">CTDS, UChicago · 2019</span>
+        </div>
+        <p>Contributed to the open-source Gen3 framework at the Center for Translational Data Science at the University of Chicago — the NIH-backed platform for building biomedical data commons. Work focused on data ingestion pipelines and access control layers that underpin large-scale genomic and clinical data sharing across institutions.</p>
+        <div class="project-meta">Python · Gen3 · NIH Data Commons · Genomics Infrastructure</div>
+      </div>
+
+      <div class="project hidden" id="project-gpu">
+        <div class="project-header">
+          <span class="project-title">GPU DNA Sequence Alignment</span>
+          <span class="project-tag">HPC / CUDA · 2020</span>
+        </div>
+        <p>CUDA implementations of Smith-Waterman (local alignment) and Needleman-Wunsch (global alignment) — two foundational algorithms in bioinformatics. Parallelized across GPU threads to achieve significant speedups over CPU baselines on large genomic sequences.</p>
+        <div class="project-meta">CUDA · C++ · HPC · Bioinformatics · Parallel Computing</div>
+        <div class="project-links">
+          <a href="https://github.com/bowen-bao/Smith-Waterman-Cuda" target="_blank" rel="noopener">GitHub →</a>
+        </div>
+      </div>
+
+      <button class="show-more-btn" id="show-more-btn" onclick="toggleProjects()">
+        <span id="show-more-label">2 more projects</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M2 4l4 4 4-4"/>
+        </svg>
+      </button>
 
     </section>
 
@@ -409,6 +525,7 @@
       <div class="tab-row">
         <button class="tab active" data-panel="watercolor">Watercolor</button>
         <button class="tab" data-panel="ikebana">Ikebana</button>
+        <button class="tab" data-panel="woodworking">Woodworking</button>
       </div>
 
       <!-- Watercolor Panel -->
@@ -485,6 +602,43 @@
         <p class="art-note">More to be added — photographing older arrangements.</p>
       </div>
 
+      <!-- Woodworking Panel -->
+      <div class="art-panel" id="panel-woodworking">
+        <div class="featured-piece">
+          <div class="placeholder-img featured">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+            </svg>
+          </div>
+          <div class="featured-info">
+            <h3>Walnut shelf, joinery detail</h3>
+            <p>Hand-cut dovetails. The fit matters more than the finish — you can feel when it's right before you can see it.</p>
+            <span class="meta">Walnut · 2025</span>
+          </div>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-tile">
+            <div class="placeholder-img thumb">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+            <div class="tile-caption"><p>Small cabinet</p><span>2025</span></div>
+          </div>
+          <div class="gallery-tile">
+            <div class="placeholder-img thumb">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+            <div class="tile-caption"><p>Cutting board</p><span>2024</span></div>
+          </div>
+          <div class="gallery-tile">
+            <div class="placeholder-img thumb">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+            <div class="tile-caption"><p>Joint study</p><span>2024</span></div>
+          </div>
+        </div>
+        <p class="art-note">More to be added — photographing older pieces.</p>
+      </div>
+
     </section>
 
   </main>
@@ -504,6 +658,16 @@
         document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
       });
     });
+
+    // Show more projects
+    function toggleProjects() {
+      const hidden = document.querySelectorAll('.project.hidden');
+      const btn = document.getElementById('show-more-btn');
+      const label = document.getElementById('show-more-label');
+      const expanded = btn.classList.toggle('expanded');
+      hidden.forEach(p => p.classList.toggle('visible'));
+      label.textContent = expanded ? 'Show less' : '2 more projects';
+    }
   </script>
 
 </body>
